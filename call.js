@@ -1,15 +1,28 @@
 
-
 const promise = new Promise((resolve, reject) => {
-    const randomNumber = Math.floor(Math.random() * 10);
-
-    setTimeout(() => {
-        if (randomNumber < 5) {
-            resolve(`Success! The number is ${randomNumber}`);
-        } else {
-            reject(`Failure! The number is ${randomNumber}`);
-        }
-    }, 3000);
+    resolve('Well Done! Promise One is resolved.');
 });
 
-console.log(promise);
+const promiseTwo = new Promise((resolve, reject) => {
+    resolve('Well Done! Promise Two is resolved.');
+});
+
+const promiseThree = new Promise((resolve, reject) => {
+    reject('Well Done! Promise Three is rejected. Unlucky!')
+});
+
+promise
+.then((value) => {
+    console.log(value);
+    promiseTwo.then((data) => {
+        console.log(data);
+    promiseThree.then((data) => {
+        console.log(data);
+    }).catch((error) => {
+        console.log(error) 
+    })
+    })
+})
+.catch((error) => {
+    console.log(error)
+});
