@@ -1,28 +1,15 @@
-
-const promise = new Promise((resolve, reject) => {
-    resolve('Well Done! Promise One is resolved.');
+const promiseOne = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve('Promise One is resolved.')
+    }, 2000);
 });
 
 const promiseTwo = new Promise((resolve, reject) => {
-    resolve('Well Done! Promise Two is resolved.');
+    setTimeout(() => {
+        reject(' Promise Two is rejected.')
+    }, 1500);
 });
 
-const promiseThree = new Promise((resolve, reject) => {
-    reject('Well Done! Promise Three is rejected. Unlucky!')
-});
-
-promise
-.then((value) => {
-    console.log(value);
-    promiseTwo.then((data) => {
-        console.log(data);
-    promiseThree.then((data) => {
-        console.log(data);
-    }).catch((error) => {
-        console.log(error) 
-    })
-    })
-})
-.catch((error) => {
-    console.log(error)
-});
+Promise.all([promiseOne, promiseTwo])
+.then((data) => console.log(data[0], data[1]))
+.catch((error) => console.log(error));
